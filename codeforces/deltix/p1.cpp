@@ -1,0 +1,106 @@
+#include<bits/stdc++.h>
+
+using namespace std;
+typedef vector<int> VI;
+typedef vector<vector<int> > VVI;
+typedef vector<string> VS;
+typedef vector<vector<string> > VVS;
+typedef signed long long i64;
+typedef unsigned long long u64;
+
+#define pi pair<int, int>
+#define mod 1000000007
+#define ll long long
+#define ld long double
+#define fu(i, m, n) for (ll i = (m); i < (n); ++i)
+#define pb push_back
+#define YES cout<<"YES"<<'\n';
+#define NO cout<<"NO"<<'\n'; 
+#define sz(x) (int)(x).size()
+
+ll fact(ll n){
+    ll p=1;
+    for(ll k=1;k<=n;k++){
+    p*=k;
+    p=p%mod;
+    }
+    p=p%mod;
+    return p;
+
+}
+
+ll power(ll n, ll k){
+    ll p=1;
+    while(k--){
+        p*=n;
+    }
+    return p;
+}
+
+const ll m=1e6+6;
+bool prime[m];
+void SieveOfEratosthenes(int n)
+{
+    
+    memset(prime, true, sizeof(prime));
+ 
+    for (int p = 2; p * p <= n; p++)
+    {
+        if (prime[p] == true)
+        {
+            for (int i = p * p; i <= n; i += p)
+                prime[i] = false;
+        }
+    }
+}
+const int N=2e5+1;
+vector<vector<int> >d(N+1);
+//for storing factors of every number from 1 to N
+void factors(){
+    for(int i=1;i<N;i++){
+        for(int j=i;j<N;j+=i){
+            d[j].push_back(i);
+        }
+    }
+
+}
+
+bool cmp(pair<ll, ll> a, pair<ll, ll> b) {return a.second < b.second;}
+
+void solve(){
+	int n,m;
+	cin>>n>>m;
+	string s,ans;
+    
+    cin>>s;
+    ans=s;
+    int f;
+    while(m--){
+        f=0;
+        if(s[0]=='0' && s[1]=='1') ans[0]='1',f=1;
+        for(int i=1;i<n-1;i++){
+            
+            if(s[i]=='0'){
+                if(s[i+1]=='1' && s[i-1]=='0') ans[i]='1',f=1;
+                if(s[i+1]=='0' && s[i-1]=='1') ans[i]='1',f=1;
+                
+            }
+        }
+        if(s[n-1]=='0' && s[n-2]=='1') ans[n-1]='1',f=1;
+       // cout<<ans<<'\n';
+        s=ans;
+        if(f==0)break;
+    }
+    cout<<ans;
+    cout<<'\n';
+}
+int main()
+
+{
+    //ios_base::sync_with_stdio(false), cin.tie(0);
+    ll t;cin>>t;
+    while(t--)
+    solve();
+}
+
+   
